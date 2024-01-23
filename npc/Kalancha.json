@@ -1,0 +1,9 @@
+{
+	"Name": "Kalancha",
+	"Background": "His origins are unknown apart from having been part of a research team at Lab X-8 together with Lebedev and Docent Suslov.",
+	"Relation": 50,
+	"Equipment": ["CS-3a body armor"],
+	"Missions": [],
+	"Fraction": "Clear Sky",
+	"Shop": ["CS-3a body armor", "Viper 5"]
+}

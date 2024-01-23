@@ -1,0 +1,9 @@
+{
+	"Name": "Mico",
+	"Health": 100,
+	"Fraction": "Loner",
+	"Equipment": ["Viper 5"],
+	"Missions": [],
+	"Money": 1000,
+	"Location": "Clear Sky base"
+}

@@ -1,0 +1,17 @@
+{
+	"Name": "Leather jacket",
+	"Description": "The leather jacket does not provide sufficient protection from the Zone's harsh conditions, since it's simply a leather anorak with blue trousers tucked into hiking boots. Typically, it's also worn with a backpack with extra straps across the chest. The leather jacket offers little protection from gunfire or claws and it's absolutely useless against radiation or anomalies.",
+	"Cost": 1000,
+	"Weight": 3,
+	"Statistics": {
+		"Burn": 3,
+		"Electric shock": 3,
+		"Chemical burn": 3,
+		"Radiation": 3,
+		"Telepathy": 0,
+		"Rupture": 15,
+		"Bulletproof cap": 1,
+		"Impact": 15,
+		"Explosion": 15
+	}
+}

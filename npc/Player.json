@@ -1,0 +1,10 @@
+{
+	"Name": "Mico",
+	"Health": 100,
+	"Fraction": "Loner",
+	"Armor": "CS-3a body armor",
+	"Weapon": "Viper 5",
+	"Missions": ["Talk to Nimble"],
+	"Money": 1000,
+	"Location": "Clear Sky base"
+}

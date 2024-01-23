@@ -1,0 +1,10 @@
+{
+	"Name": "Lebedev",
+	"Health": 100,
+	"Background": "Lebedev is a stern, educated man and a member of the original group of scientists that worked on the C-Consciousness project before the Zone and possibly the first radio-wave mind control experiments in Limansk. He formed Clear Sky after the Second Emission in 2006. He believes that humanity is unable to understand the Zone and that the best solution is to simply coexist with the Zone. He also believes that the Zone functions like a living organism in the sense that it fights back at humanity when they venture too deep into the Zone. Clear Sky's beliefs are very similar to those of Freedom and the Ecologists, but unlike the Ecologists, Clear Sky is willing to use violence to achieve their goals.",
+	"Relation": "Friendly",
+	"Armor": "Leather jacket",
+	"Weapon": "Viper 5",
+	"Missions": ["Talk to Nimble"],
+	"Fraction": "Clear Sky"
+}

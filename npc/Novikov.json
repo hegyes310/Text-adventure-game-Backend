@@ -1,0 +1,11 @@
+{
+	"Novikov":
+	{
+		"Name": "Novikov", 
+		"Background": "According to Cold, Novikov is an extremely talented technician.",
+		"Relation": 50,
+		"Equipment": ["CS-3a body armor"],
+		"Missions": [],
+		"Fraction": "Clear Sky"
+	}
+}

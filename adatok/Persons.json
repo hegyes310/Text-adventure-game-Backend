@@ -1,0 +1,18 @@
+{
+	"Lebedev":
+	{
+		"Name": "Lebedev", 
+		"Background": "Lebedev is a stern, educated man and a member of the original group of scientists that worked on the C-Consciousness project before the Zone and possibly the first radio-wave mind control experiments in Limansk. He formed Clear Sky after the Second Emission in 2006. He believes that humanity is unable to understand the Zone and that the best solution is to simply coexist with the Zone. He also believes that the Zone functions like a living organism in the sense that it fights back at humanity when they venture too deep into the Zone. Clear Sky's beliefs are very similar to those of Freedom and the Ecologists, but unlike the Ecologists, Clear Sky is willing to use violence to achieve their goals.",
+		"Relation": 50,
+		"Equipment": ["CS-3a body armor", "Viper 5"],
+		"Missions": ["Talk to Nimble"]
+	},
+	"Nimble":
+	{
+		"Name": "Nimble",
+		"Background": "A very resourceful and lucky person, Nimble is a survivor - he always seems to live to fight another day. Thus far, he has survived the destruction of the Clear Sky faction, being captured by bandits and managed to establish a profitable gun running business. Part of that is thanks to his two talents: staying unseen and remaining useful. Nimble is well connected to the underground market thanks to his time with Sidorovich. He has also worked for other traders, establishing a reputation as an indispensable agent who can be trusted with truly sensitive missions. Connections he made while working with Sidorovich will later allow him to start his own business, stating he's not interested in working for people anymore.",
+		"Relation": 50,
+		"Equipment": ["Leather jacket"],
+		"Missions": []
+	}
+}

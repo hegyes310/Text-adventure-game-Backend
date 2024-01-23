@@ -1,0 +1,51 @@
+{
+	"CS-3a body armor": {
+		"Name": "CS-3a body armor",
+		"Description": "This body armor was designed for conducting search operations in areas of low anomalous activity. Its higher quality materials result in greater durability. Includes a container capable of holding one artifact",
+		"Cost": 5000,
+		"Weight": 4,
+		"Statistics": {
+			"Burn": 8,
+			"Electric shock": 8,
+			"Chemical burn": 8,
+			"Radiation": 8,
+			"Telepathy": 0,
+			"Rupture": 25,
+			"Bulletproof cap": 11,
+			"Impact": 25,
+			"Explosion": 11
+		}
+	},
+	"Viper 5": {
+		"Name": "Viper 5",
+		"Description": "This submachine gun has gained popularity around the world thanks to its reliability, ease of use and accuracy. Over the last few decades the Viper 5 was in service with special armed forces and police units worldwide. Not surprisingly, having flooded the global black markets, it eventually made its way to the Zone.",
+		"Cost": 1100,
+		"Weight": 2.5,
+		"Statistics": {
+			"Accuracy": 12,
+			"Handling": 88,
+			"Damage": 36,
+			"Fire Rate": 800,
+			"Range": 200,
+			"Bullet Speed": 400,
+			"Durability": 5000
+		}
+	},
+	"Leather jacket": {
+		"Name": "Leather jacket",
+		"Description": "The leather jacket does not provide sufficient protection from the Zone's harsh conditions, since it's simply a leather anorak with blue trousers tucked into hiking boots. Typically, it's also worn with a backpack with extra straps across the chest. The leather jacket offers little protection from gunfire or claws and it's absolutely useless against radiation or anomalies.",
+		"Cost": 1000,
+		"Weight": 3,
+		"Statistics": {
+			"Burn": 3,
+			"Electric shock": 3,
+			"Chemical burn": 3,
+			"Radiation": 3,
+			"Telepathy": 0,
+			"Rupture": 15,
+			"Bulletproof cap": 5,
+			"Impact": 15,
+			"Explosion": 15
+		}
+	}
+}

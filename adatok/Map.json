@@ -1,0 +1,6 @@
+{
+	"Clear Sky base": {
+		"description": "The base of Clear Sky is located well hidden in the southwest corner of the Swamps, in a village that was flooded back in Soviet times. Due to that, it is not registered on any official maps, making finding it nearly impossible.[1] It contains of a two story main building, with Lebedev the commander residing on the ground floor and Nimble snoozing in the next room. Adjacent is a small laboratory, where Kalancha the scientist monitors his makeshift displays and instruments. A bar, run by Cold, is right next to it. Across the campsite, Novikov the base technician sits in a tiny hut. The workshop opposite to the main building is where Suslov is trading his goods. The whole area is surrounded by barbed wire and wooden fences, bushes obstructing the view out of the base.",
+		"persons": ["Lebedev", "Beanpolev", "Nimble", "Ivan Trodnik", "Novikov", "Docent Suslov", "Cold"]
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"Cold":
+	{
+		"Name": "Cold", 
+		"Background": "He is working as Clear Sky's bartender, dispensing food and drink to the other members. He is apparently known among his comrades as a master of dirty jokes. According to Cold himself, he went to the Zone because there was no place for him in the outside world.",
+		"Relation": 50,
+		"Equipment": ["CS-3a body armor"],
+		"Missions": [],
+		"Fraction": "Clear Sky",
+		"Shop": ["Hello Word"]
+	}
+}

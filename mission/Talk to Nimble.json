@@ -1,0 +1,9 @@
+{
+	"Name": "Talk to Nimble",
+	"Giver": "Lebedev",
+	"Description": "The player have to talk with Nimble about the current weather.",
+	"Target": "Nimble",
+	"Item reward": ["Viper 5"],
+	"Money reward": 1000,
+	"Finished": "When the player talk with Nimble about the current weather."
+}

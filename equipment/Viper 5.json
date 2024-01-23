@@ -1,0 +1,11 @@
+{
+	"Name": "Viper 5",
+		"Description": "This submachine gun has gained popularity around the world thanks to its reliability, ease of use and accuracy. Over the last few decades the Viper 5 was in service with special armed forces and police units worldwide. Not surprisingly, having flooded the global black markets, it eventually made its way to the Zone.",
+		"Cost": 1100,
+		"Statistics": {
+			"Accuracy": 1.2,
+			"Handling": 8.8,
+			"Damage": 3.6,
+			"Fire Rate": 8.0
+	}
+}
