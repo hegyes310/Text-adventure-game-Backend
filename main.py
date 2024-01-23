@@ -13,6 +13,7 @@ from langchain.schema import AgentAction, AgentFinish, HumanMessage
 import re
 import flask
 from openai import OpenAI
+from damage_system import fightWithACharacter
 
 app = Flask(__name__)
 CORS(app)
@@ -35,6 +36,17 @@ def read_files_from_folder(folder_path):
 
     return file_data
 
+
+def getWeaponStatistics(name):
+    weaponFromCollection = stalker_collection.get(name)
+    weaponStats = json.loads((weaponFromCollection['documents'][0]))
+    return [weaponStats["Statistics"]["Accuracy"], weaponStats["Statistics"]["Handling"], weaponStats["Statistics"]["Damage"], weaponStats["Statistics"]["Fire Rate"]]
+
+
+def getArmorBulletProfs(name):
+    armorFromCollection = stalker_collection.get(name)
+    armorStats = json.loads((armorFromCollection['documents'][0]))
+    return armorStats["Statistics"]["Bulletproof cap"]
 
 def inicializenpcs():
     npc_path = "npc"
@@ -136,11 +148,46 @@ def characterIsATrader(character):
         return character + " is not a trader."
 
 
+def figthasd(character):
+    return "fight"
+    enemyFromCollection = stalker_collection.get(character)
+    enemy = json.loads((enemyFromCollection['documents'][0]))
+    playerFromCollection = stalker_collection.get("Player")
+    player = json.loads((playerFromCollection['documents'][0]))
+
+    playerWeaponStats = getWeaponStatistics(player['Weapon'])
+    enemyWeaponStats = getWeaponStatistics(enemy['Weapon'])
+
+    return "fight"
+
+    #playerHealth, enemyHealth = fightWithACharacter(playerWeaponStats[0], playerWeaponStats[1], playerWeaponStats[2], playerWeaponStats[3],  getArmorBulletProfs(player["Armor"]), player['Health'], enemyWeaponStats[0], enemyWeaponStats[1], enemyWeaponStats[2], enemyWeaponStats[3], getArmorBulletProfs(enemy["Armor"]), enemy['Health'])
+    #return "Player:{};{};{};{};{};{};{};{};{};{};{};, Enemy:"
+    '''
+    if playerHealth <= 0:
+        return "Player died"
+    else:
+        return enemy['Name']+" died"
+        '''
+
+
+def getPlayerAndEnemyArmorWeapon(characterName):
+    enemyFromCollection = stalker_collection.get(characterName)
+    enemy = json.loads((enemyFromCollection['documents'][0]))
+    playerFromCollection = stalker_collection.get("Player")
+    player = json.loads((playerFromCollection['documents'][0]))
+
+
+
 tools = [
     Tool(
         name="Trading with a character",
         func=characterIsATrader,
         description="Useful when the input text is about to start trade, shop or buying something. The input is the name of the character the with whom the player is talking."
+    ),
+    Tool(
+        name="Fight",
+        func=figthasd,
+        description="Useful when the input text is about to start a fight. The input format is the name of the character the player wants to fight."
     )
 ]
 
@@ -157,7 +204,7 @@ Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times, but only once per tool)
 Thought: I now know the final answer
-Final Answer: the final answer is the tool output
+Final Answer: the tool's name
 
 
 Sentence: {input}
@@ -253,15 +300,52 @@ def chatbot_api():
     else:
         return "The character is not a trader."
     '''
-    if "can buy" in answer or "who is a trader" or "is a trader" in answer:
+    outputObject = []
+    print("asnwer: ", answer)
+    probanev = "Lebedev"
+
+    if "Fight" in answer:
+        situation = "fight"
+        outputObject.append(situation)
+
+        enemyFromCollection = stalker_collection.get(probanev)
+        enemy = json.loads(enemyFromCollection['documents'][0])
+        playerFromCollection = stalker_collection.get("Player")
+        player = json.loads((playerFromCollection['documents'][0]))
+        enemyWeapon = enemy["Weapon"]
+        playerWeapon = player["Weapon"]
+        outputObject.append(playerWeapon)
+        outputObject.append(enemyWeapon)
+        print("fight és ez outputObject: ", outputObject)
+        return json.dumps(outputObject)
+
+    if "can buy" in answer or "who is a trader" in answer or "is a trader" in answer:
+        situation = '{"situation": "trade"}'
+        outputObject.append(situation)
         print("trader")
-        return json.dumps(itemsToTrade)
-    else:
-        return "The character is not a trader."
+        outputObject = []
+
+        enemyFromCollection = stalker_collection.get(probanev)
+        print("enemyFromCollection: ", enemyFromCollection)
+        enemysName = json.loads(enemyFromCollection['documents'][0])
+        enemysNameToParse = enemysName["Name"]
+        #output_parser = '{"Situation:Trade; ""name":"'+enemysName+'","'
+
+        for item in enemysName["Shop"]:
+            itemFromCollection = stalker_collection.get(item)
+            itemm = json.loads(itemFromCollection['documents'][0])
+            outputObject.append(itemm)
+        print("tader és ez outputObject: ", outputObject)
+        return json.dumps(outputObject)
+
+
     #return messages
+    #return outputObject;
+    return '{"situation": "Noob a player"}'
 
 
 if __name__ == '__main__':
+
     OPENAI_API_KEY = open_file('key_openai.txt')
     client = chromadb.Client()
     stalker_collection = client.create_collection("stalker_collection")
