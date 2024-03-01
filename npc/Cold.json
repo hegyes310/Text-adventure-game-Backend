@@ -1,12 +1,15 @@
 {
-	"Cold":
-	{
-		"Name": "Cold", 
-		"Background": "He is working as Clear Sky's bartender, dispensing food and drink to the other members. He is apparently known among his comrades as a master of dirty jokes. According to Cold himself, he went to the Zone because there was no place for him in the outside world.",
-		"Relation": 50,
-		"Equipment": ["CS-3a body armor"],
-		"Missions": [],
-		"Fraction": "Clear Sky",
-		"Shop": ["Hello Word"]
-	}
+	"Name": "Cold", 
+	"Health": 100,
+	"Background": "He is working as Clear Sky's bartender, dispensing food and drink to the other members. He is apparently known among his comrades as a master of dirty jokes. According to Cold himself, he went to the Zone because there was no place for him in the outside world.",
+	"Relation": "Friendly",
+	"Armor": "Leather jacket",
+	"Weapon": "Viper 5",
+	"Missions": ["Talk to Nimble"],
+	"Fraction": "Clear Sky",
+	"Shop": ["CS-3a body armor", "Akm-742U"],
+	"Map": "Clear sky base",
+	"Location": "Bar",
+	"Memories": [],
+	"Picture": "src/assets/npcs/cold.png"
 }

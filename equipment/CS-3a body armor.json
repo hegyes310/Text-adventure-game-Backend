@@ -2,13 +2,11 @@
 	"Name": "CS-3a body armor",
 	"Description": "This body armor was designed for conducting search operations in areas of low anomalous activity. Its higher quality materials result in greater durability. Includes a container capable of holding one artifact",
 	"Cost": 5000,
-	"Weight": 4,
 	"Statistics": {
 		"Burn": 8,
 		"Electric shock": 8,
 		"Chemical burn": 8,
 		"Radiation": 8,
-		"Telepathy": 0,
 		"Rupture": 2.5,
 		"Bulletproof cap": 1.1,
 		"Impact": 2.5

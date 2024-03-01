@@ -1,378 +1,113 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, current_app
 from flask_cors import CORS
-import json
-import chromadb
-import os
-from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
-from langchain.prompts import BaseChatPromptTemplate
-from langchain.utilities import SerpAPIWrapper
-from langchain.chains.llm import LLMChain
-from langchain.chat_models import ChatOpenAI
-from typing import List, Union
-from langchain.schema import AgentAction, AgentFinish, HumanMessage
-import re
-import flask
-from openai import OpenAI
-from damage_system import fightWithACharacter
-
-app = Flask(__name__)
-CORS(app)
-
-
-def open_file(filepath):
-    with open(filepath, 'r', encoding='utf-8', errors='ignore') as infile:
-        return infile.read()
-
-
-def read_files_from_folder(folder_path):
-    file_data = []
-
-    for file_name in os.listdir(folder_path):
-        if file_name.endswith(".json"):
-            with open(os.path.join(folder_path, file_name), 'r') as file:
-                content = file.read()
-                print(file_name)
-                file_data.append({"file_name": file_name, "content": content})
-
-    return file_data
-
-
-def getWeaponStatistics(name):
-    weaponFromCollection = stalker_collection.get(name)
-    weaponStats = json.loads((weaponFromCollection['documents'][0]))
-    return [weaponStats["Statistics"]["Accuracy"], weaponStats["Statistics"]["Handling"], weaponStats["Statistics"]["Damage"], weaponStats["Statistics"]["Fire Rate"]]
-
-
-def getArmorBulletProfs(name):
-    armorFromCollection = stalker_collection.get(name)
-    armorStats = json.loads((armorFromCollection['documents'][0]))
-    return armorStats["Statistics"]["Bulletproof cap"]
-
-def inicializenpcs():
-    npc_path = "npc"
-    npc_data = read_files_from_folder(npc_path)
-    documents = []
-    metadatas = []
-    ids = []
-
-    for index, data in enumerate(npc_data):
-        documents.append(data['content'])
-        metadatas.append({'source': data['file_name'][:-5]})
-        ids.append(data['file_name'][:-5])
-
-    stalker_collection.add(
-        documents=documents,
-        metadatas=metadatas,
-        ids=ids
-    )
-
-
-def inicializemap():
-    map_path = "map"
-    map_data = read_files_from_folder(map_path)
-    documents = []
-    metadatas = []
-    ids = []
-
-    for index, data in enumerate(map_data):
-        documents.append(data['content'])
-        metadatas.append({'source': data['file_name'][:-5]})
-        ids.append(data['file_name'][:-5])
-
-    stalker_collection.add(
-        documents=documents,
-        metadatas=metadatas,
-        ids=ids
-    )
-
-
-def inicializeequipment():
-    equipment_path = "equipment"
-    equipment_data = read_files_from_folder(equipment_path)
-    documents = []
-    metadatas = []
-    ids = []
-
-    for index, data in enumerate(equipment_data):
-        documents.append(data['content'])
-        metadatas.append({'source': data['file_name'][:-5]})
-        ids.append(data['file_name'][:-5])
-
-    stalker_collection.add(
-        documents=documents,
-        metadatas=metadatas,
-        ids=ids
-    )
-
-
-def inicializemission():
-    mission_path = "mission"
-    mission_data = read_files_from_folder(mission_path)
-    documents = []
-    metadatas = []
-    ids = []
-
-    for index, data in enumerate(mission_data):
-        documents.append(data['content'])
-        metadatas.append({'source': data['file_name'][:-5]})
-        ids.append(data['file_name'][:-5])
-
-    stalker_collection.add(
-        documents=documents,
-        metadatas=metadatas,
-        ids=ids
-    )
-
-
-def inicializethegame():
-    inicializeequipment()
-    inicializemission()
-    inicializemap()
-    inicializenpcs()
-
-
-def characterIsATrader(character):
-    npcFromCollection = stalker_collection.get(character)
-    npc = json.loads((npcFromCollection['documents'][0]))
-    shopItems = []
-    for item in npc["Shop"]:
-        itemFromCollection = stalker_collection.get(item)
-        itemm = json.loads(itemFromCollection['documents'][0])
-        shopItems.append(itemm)
-
-    if len(shopItems) > 0:
-        trader = character
-        itemsToTrade = shopItems
-        return character + " is a trader."
-    else:
-        return character + " is not a trader."
-
-
-def figthasd(character):
-    return "fight"
-    enemyFromCollection = stalker_collection.get(character)
-    enemy = json.loads((enemyFromCollection['documents'][0]))
-    playerFromCollection = stalker_collection.get("Player")
-    player = json.loads((playerFromCollection['documents'][0]))
-
-    playerWeaponStats = getWeaponStatistics(player['Weapon'])
-    enemyWeaponStats = getWeaponStatistics(enemy['Weapon'])
-
-    return "fight"
-
-    #playerHealth, enemyHealth = fightWithACharacter(playerWeaponStats[0], playerWeaponStats[1], playerWeaponStats[2], playerWeaponStats[3],  getArmorBulletProfs(player["Armor"]), player['Health'], enemyWeaponStats[0], enemyWeaponStats[1], enemyWeaponStats[2], enemyWeaponStats[3], getArmorBulletProfs(enemy["Armor"]), enemy['Health'])
-    #return "Player:{};{};{};{};{};{};{};{};{};{};{};, Enemy:"
-    '''
-    if playerHealth <= 0:
-        return "Player died"
-    else:
-        return enemy['Name']+" died"
-        '''
-
-
-def getPlayerAndEnemyArmorWeapon(characterName):
-    enemyFromCollection = stalker_collection.get(characterName)
-    enemy = json.loads((enemyFromCollection['documents'][0]))
-    playerFromCollection = stalker_collection.get("Player")
-    player = json.loads((playerFromCollection['documents'][0]))
-
-
-
-tools = [
-    Tool(
-        name="Trading with a character",
-        func=characterIsATrader,
-        description="Useful when the input text is about to start trade, shop or buying something. The input is the name of the character the with whom the player is talking."
-    ),
-    Tool(
-        name="Fight",
-        func=figthasd,
-        description="Useful when the input text is about to start a fight. The input format is the name of the character the player wants to fight."
-    )
-]
-
-template = """Analyze the following sentences as best you can. You have access to the following tools:
-
-{tools}
-
-Use the following format:
-
-Sentence: the input sentence you must analyze
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times, but only once per tool)
-Thought: I now know the final answer
-Final Answer: the tool's name
-
-
-Sentence: {input}
-{agent_scratchpad}"""
-
-
-class CustomPromptTemplate(BaseChatPromptTemplate):
-    # The template to use
-    template: str
-    # The list of tools available
-    tools: List[Tool]
-
-    def format_messages(self, **kwargs) -> str:
-        # Get the intermediate steps (AgentAction, Observation tuples)
-
-        # Format them in a particular way
-        intermediate_steps = kwargs.pop("intermediate_steps")
-        thoughts = ""
-        for action, observation in intermediate_steps:
-            thoughts += action.log
-            thoughts += f"\nObservation: {observation}\nThought: "
-
-        # Set the agent_scratchpad variable to that value
-        kwargs["agent_scratchpad"] = thoughts
-
-        # Create a tools variable from the list of tools provided
-        kwargs["tools"] = "\n".join([f"{tool.name}: {tool.description}" for tool in self.tools])
-
-        # Create a list of tool names for the tools provided
-        kwargs["tool_names"] = ", ".join([tool.name for tool in self.tools])
-        formatted = self.template.format(**kwargs)
-        return [HumanMessage(content=formatted)]
-
-
-prompt = CustomPromptTemplate(
-    template=template,
-    tools=tools,
-    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
-    # This includes the `intermediate_steps` variable because that is needed
-    input_variables=["input", "intermediate_steps"]
-)
-
-
-class CustomOutputParser(AgentOutputParser):
-
-    def parse(self, llm_output: str) -> Union[AgentAction, AgentFinish]:
-
-        # Check if agent should finish
-        print("llm output: ", llm_output)
-        if "Final Answer:" in llm_output:
-            return AgentFinish(
-                # Return values is generally always a dictionary with a single `output` key
-                # It is not recommended to try anything else at the moment :)
-                return_values={"output": llm_output.split("Final Answer:")[-1].strip()},
-                log=llm_output,
-            )
-
-        # Parse out the action and action input
-        regex = r"Action: (.*?)[\n]*Action Input:[\s]*(.*)"
-        match = re.search(regex, llm_output, re.DOTALL)
-
-        # If it can't parse the output it raises an error
-        # You can add your own logic here to handle errors in a different way i.e. pass to a human, give a canned response
-        if not match:
-            raise ValueError(f"Could not parse LLM output: `{llm_output}`")
-        action = match.group(1).strip()
-        action_input = match.group(2)
-
-        # Return the action and action input
-        #return AgentAction(tool=action, tool_input=action_input.strip(" ").strip('"'), log=llm_output)
-        return AgentAction(tool=action, tool_input=action_input.strip(" ").strip('"'), log=llm_output)
-
-
-@app.route('/chatbot', methods=['POST'])
-def chatbot_api():
-    data = request.get_json()
-
-    # Extract input data from the request
-    messages = data.get('messages', "")
-    print("ezt kaptam meg: ", messages)
-    answer = agent_executor.run(messages)
-    '''
-    shopItems = []
-
-    for item in npc["Shop"]:
-        itemFromCollection = stalker_collection.get(item)
-        itemm = json.loads(itemFromCollection['documents'][0])
-        shopItems.append(itemm)
-
-    if "can buy" in answer:
-        print("trader")
-        return json.dumps(shopItems)
-    else:
-        return "The character is not a trader."
-    '''
-    outputObject = []
-    print("asnwer: ", answer)
-    probanev = "Lebedev"
-
-    if "Fight" in answer:
-        situation = "fight"
-        outputObject.append(situation)
-
-        enemyFromCollection = stalker_collection.get(probanev)
-        enemy = json.loads(enemyFromCollection['documents'][0])
-        playerFromCollection = stalker_collection.get("Player")
-        player = json.loads((playerFromCollection['documents'][0]))
-        enemyWeapon = enemy["Weapon"]
-        playerWeapon = player["Weapon"]
-        outputObject.append(playerWeapon)
-        outputObject.append(enemyWeapon)
-        print("fight és ez outputObject: ", outputObject)
-        return json.dumps(outputObject)
-
-    if "can buy" in answer or "who is a trader" in answer or "is a trader" in answer:
-        situation = '{"situation": "trade"}'
-        outputObject.append(situation)
-        print("trader")
-        outputObject = []
-
-        enemyFromCollection = stalker_collection.get(probanev)
-        print("enemyFromCollection: ", enemyFromCollection)
-        enemysName = json.loads(enemyFromCollection['documents'][0])
-        enemysNameToParse = enemysName["Name"]
-        #output_parser = '{"Situation:Trade; ""name":"'+enemysName+'","'
-
-        for item in enemysName["Shop"]:
-            itemFromCollection = stalker_collection.get(item)
-            itemm = json.loads(itemFromCollection['documents'][0])
-            outputObject.append(itemm)
-        print("tader és ez outputObject: ", outputObject)
-        return json.dumps(outputObject)
-
-
-    #return messages
-    #return outputObject;
-    return '{"situation": "Noob a player"}'
+from repository import Repository
+from agent_and_tools import AgentWithTools
+from GPTChatbot import Chatbot
+from templates import game_start
+from character_agent import Character_Agent
+
+def create_app():
+    app = Flask(__name__)
+
+    CORS(app)
+
+    repository = Repository(gameName="adventuregame")
+
+    chatbot = Chatbot(game_start)
+
+    agent_executer = AgentWithTools(repository, chatbot)
+
+
+
+    with app.app_context():
+        current_app.repository = repository
+
+    @app.route('/getItems', methods=['POST'])
+    def getItems():
+        print("getItems: ", repository.getEquipments())
+
+        return repository.getEquipments()
+
+    @app.route('/setSelectedGame', methods=['POST'])
+    def setGame():
+        data = request.get_json()
+        repository.setGame(data)
+        agent_executer.setRepository(repository)
+
+        print("válasz: ", data)
+        #print("player db: ", repository.player.find()[0])
+        createdPlayer = repository.player.find()[0]
+
+        del createdPlayer['_id']
+        print("createdPlayer: ", createdPlayer)
+        return createdPlayer
+
+    @app.route('/getSaves', methods=['POST'])
+    def getSavedGames():
+        saved_games = repository.getSavedGames()
+
+        return saved_games
+
+    @app.route('/deleteGame', methods=['POST'])
+    def deleteGame():
+        data = request.get_json()
+        is_saved_game_succesfully_deleted = repository.delete_game(data)
+
+        return {'response': is_saved_game_succesfully_deleted}
+
+    @app.route('/createNewGame', methods=['POST'])
+    def startGame():
+        data = request.get_json()
+
+        repository.createNewGame(data)
+        locationInfo = repository.getPlayerLocationInfos()
+        chatbot.set_player_message(locationInfo)
+        agent_executer.setRepository(repository)
+        answer = chatbot.get_start_response()
+        print("answer: ", answer)
+        #return {'response': answer}
+        speaker = "Game master"
+        speakerImage = "src/assets/images/gameicons/game_master.png"
+
+        return {'response': answer, 'speaker': speaker, 'speakerImage': speakerImage}
+
+    @app.route('/chatbot', methods=['POST'])
+    def chatbot_api():
+        data = request.get_json()
+
+        # Extract input data from the request
+        messages = data.get('messages')
+        try:
+            answer_from_agent = agent_executer.agent_executer.run(messages)
+        except Exception as e:
+            response = str(e)
+            if not response.startswith("Could not parse LLM output: `"):
+                raise e
+            response = response.removeprefix("Could not parse LLM output: `").removesuffix("`")
+
+        #chatbot.set_player_message(messages)
+
+        #answer_from_chatbot = chatbot.get_response(messages)
+        if repository.getCharacterWithWhomThePlayerisInteracting() == "None":
+            chatbot.set_player_message(messages)
+            answer_from_chatbot = chatbot.get_response(messages)
+            speaker = "Game master"
+            speakerImage = "src/assets/images/gameicons/game_master.png"
+
+        else:
+            agent_as_character = Character_Agent(repository)
+            print("ez a karater: ", agent_as_character.personified_character)
+            answer_from_chatbot = agent_as_character.agent_executer.run(messages)
+            speaker = agent_as_character.get_character_name()
+            speakerImage = agent_as_character.get_character_picture()
+
+        return {'response': answer_from_chatbot, 'speaker': speaker, 'speakerImage': speakerImage}
+
+        #return repository.getLastAction()
+
+    return app
 
 
 if __name__ == '__main__':
-
-    OPENAI_API_KEY = open_file('key_openai.txt')
-    client = chromadb.Client()
-    stalker_collection = client.create_collection("stalker_collection")
-    inicializethegame()
-
-    output_parser = CustomOutputParser()
-
-    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=OPENAI_API_KEY)
-
-    # LLM chain consisting of the LLM and a prompt
-    llm_chain = LLMChain(llm=llm, prompt=prompt)
-
-    # Using tools, the LLM chain and output_parser to make an agent
-    tool_names = [tool.name for tool in tools]
-
-    agent = LLMSingleActionAgent(
-        llm_chain=llm_chain,
-        output_parser=output_parser,
-        # We use "Observation" as our stop sequence so it will stop when it receives Tool output
-        # If you change your prompt template you'll need to adjust this as well
-        stop=["\nObservation:"],
-        allowed_tools=tool_names
-    )
-
-    agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True)
-
-    trader = ""
-    itemsToTrade = []
-
-    app.run(debug=True)  # Run the Flask app
+    app = create_app()
+    app.run(debug=False)  # Run the Flask app

@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9084b48-3171-45a5-ab7f-c9938bff43fb" name="Changes" comment="JSON">
-      <change afterPath="$PROJECT_DIR$/damage_system.py" afterDir="false" />
+    <list default="true" id="b9084b48-3171-45a5-ab7f-c9938bff43fb" name="Changes" comment="Fight answer working, Shopping not">
+      <change afterPath="$PROJECT_DIR$/GPTChatbot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/agent_and_tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/character_agent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dbkezelo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/equipment/CS-3a body armor.json" beforeDir="false" afterPath="$PROJECT_DIR$/equipment/CS-3a body armor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/equipment/Leather jacket.json" beforeDir="false" afterPath="$PROJECT_DIR$/equipment/Leather jacket.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map/Map.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Cold.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Cold.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Docent Suslov.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Ivan Trodnik.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Ivan Trodnik.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Kalancha.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Kalancha.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Lebedev.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Lebedev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Nimble.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Nimble.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Novikov.json" beforeDir="false" afterPath="$PROJECT_DIR$/npc/Novikov.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/npc/Player.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +51,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hegyes310&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="82b403d1-e393-484b-aabf-aa019fc70eea" />
+        <option name="url" value="https://github.com/hegyes310/Text-adventure-game.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -46,7 +76,9 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.dbkezelo.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.proba_sajat_llm_eleres.executor&quot;: &quot;Run&quot;,
     &quot;Python.probaalekerdezeshez.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -56,10 +88,34 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="dbkezelo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Text adventure game" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dbkezelo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Text adventure game" />
       <option name="ENV_FILES" value="" />
@@ -75,6 +131,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="proba_sajat_llm_eleres" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Text adventure game" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/proba_sajat_llm_eleres.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -108,6 +187,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.proba_sajat_llm_eleres" />
+        <item itemvalue="Python.dbkezelo" />
         <item itemvalue="Python.probaalekerdezeshez" />
       </list>
     </recent_temporary>
@@ -129,6 +210,32 @@
       <updated>1706043294966</updated>
       <workItem from="1706043299017" duration="146000" />
       <workItem from="1706043460440" duration="7738000" />
+      <workItem from="1706051463503" duration="61000" />
+      <workItem from="1706088236047" duration="6514000" />
+      <workItem from="1706124581719" duration="1458000" />
+      <workItem from="1706194148021" duration="9523000" />
+      <workItem from="1706207457458" duration="2682000" />
+      <workItem from="1706282821583" duration="4094000" />
+      <workItem from="1706446669732" duration="8935000" />
+      <workItem from="1706630410957" duration="4469000" />
+      <workItem from="1706782857143" duration="18874000" />
+      <workItem from="1707045352322" duration="7902000" />
+      <workItem from="1707080898743" duration="3422000" />
+      <workItem from="1707157479753" duration="320000" />
+      <workItem from="1707221837636" duration="174000" />
+      <workItem from="1707223879060" duration="8384000" />
+      <workItem from="1707243722020" duration="731000" />
+      <workItem from="1707300704161" duration="10247000" />
+      <workItem from="1707332025803" duration="1000000" />
+      <workItem from="1707389172224" duration="19865000" />
+      <workItem from="1707576609132" duration="5090000" />
+      <workItem from="1707659309478" duration="391000" />
+      <workItem from="1707660000404" duration="1713000" />
+      <workItem from="1708002682599" duration="358000" />
+      <workItem from="1708105334153" duration="1000" />
+      <workItem from="1708113460373" duration="831000" />
+      <workItem from="1709202085983" duration="7000" />
+      <workItem from="1709202128748" duration="6640000" />
     </task>
     <task id="LOCAL-00001" summary="Base of the project">
       <option name="closed" value="true" />
@@ -146,19 +253,41 @@
       <option name="project" value="LOCAL" />
       <updated>1706045155043</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fight answer working, Shopping not">
+      <option name="closed" value="true" />
+      <created>1706051516849</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706051516849</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Base of the project" />
     <MESSAGE value="JSON" />
-    <option name="LAST_COMMIT_MESSAGE" value="JSON" />
+    <MESSAGE value="Fight answer working, Shopping not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fight answer working, Shopping not" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Text_adventure_game$probaalekerdezeshez.coverage" NAME="probaalekerdezeshez Coverage Results" MODIFIED="1706049463133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Text_adventure_game$main.coverage" NAME="main Coverage Results" MODIFIED="1706050608579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Text_adventure_game$dbkezelo.coverage" NAME="dbkezelo Coverage Results" MODIFIED="1706460995285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Text_adventure_game$main.coverage" NAME="main Coverage Results" MODIFIED="1709207447423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Text_adventure_game$proba_sajat_llm_eleres.coverage" NAME="proba_sajat_llm_eleres Coverage Results" MODIFIED="1707240531261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

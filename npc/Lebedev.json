@@ -6,5 +6,9 @@
 	"Armor": "Leather jacket",
 	"Weapon": "Viper 5",
 	"Missions": ["Talk to Nimble"],
-	"Fraction": "Clear Sky"
+	"Fraction": "Clear Sky",
+	"Shop": [],
+	"Map": "Clear sky base",
+	"Location": "Two-story building",
+	"Memories": []
 }

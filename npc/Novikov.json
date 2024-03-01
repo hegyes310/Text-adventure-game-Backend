@@ -1,11 +1,14 @@
 {
-	"Novikov":
-	{
-		"Name": "Novikov", 
-		"Background": "According to Cold, Novikov is an extremely talented technician.",
-		"Relation": 50,
-		"Equipment": ["CS-3a body armor"],
-		"Missions": [],
-		"Fraction": "Clear Sky"
-	}
+	"Name": "Novikov", 
+	"Health": 100,
+	"Background": "According to Cold, Novikov is an extremely talented technician.",
+	"Relation": "Friendly",
+	"Armor": "Leather jacket",
+	"Weapon": "Akm-742U",
+	"Missions": [],
+	"Fraction": "Clear Sky",
+	"Shop": [],
+	"Map": "Clear sky base",
+	"Location": "Workshop",
+	"Memories": []
 }
