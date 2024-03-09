@@ -13,7 +13,7 @@ class Character_Agent:
         self.OPENAI_API_KEY = self.open_file('key_openai.txt')
         self.repository = repository
         self.personified_character = repository.getCharacterWithWhomThePlayerisInteracting()
-        self.template = """Personify a character in a text-based RPG inspired by the Stalker games. Utilize the following tools:
+        self.template = """Personify a character in a text-based RPG inspired by the Stalker games. Answer the input sentence as your personified character. Utilize the following tools:
 
             {tools}
 
