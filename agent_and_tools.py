@@ -34,11 +34,6 @@ class AgentWithTools:
 
         self.tools = [
             Tool(
-                name="Trading with a character",
-                func=self.characterIsATrader,
-                description="Useful when the input text is about to start trade, shop or buying something. The input is the name of the character the with whom the player is talking."
-            ),
-            Tool(
                 name="Fight",
                 func=self.playerWantToFight,
                 description="Useful when the input text is about to start a fight. The input format is the name of the character the player wants to fight."
@@ -65,9 +60,6 @@ class AgentWithTools:
                 func=self.continue_the_story,
                 description="Useful when neither tool is true. Input is Nothing."
             )
-
-
-
         ]
         self.prompt = self.CustomPromptTemplate(
             template=self.template,
