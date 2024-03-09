@@ -17,6 +17,7 @@ class Repository:
             self.equipments = self.mydb["equipment"]
             self.actions = self.mydb["actions"]
             self.maps = self.mydb["maps"]
+            self.chatHistory = self.mydb["chatHistory"]
         else:
             self.myclient = pymongo.MongoClient("mongodb://localhost:27017")
             self.mydb = self.myclient[playerObj["GameName"]]
@@ -27,6 +28,7 @@ class Repository:
             self.initializeDB(playerObj)
             self.actions = self.mydb["actions"]
             self.maps = self.mydb["maps"]
+            self.chatHistory = self.mydb["chatHistory"]
 
     def initializeDB(self, playerObj):
         self.read_files_from_folder("npc", self.characters)
@@ -67,6 +69,7 @@ class Repository:
         self.equipments = self.mydb["equipment"]
         self.actions = self.mydb["actions"]
         self.maps = self.mydb["maps"]
+        self.chatHistory = self.mydb["chatHistory"]
 
     def createNewGame(self, playerObj):
         player = playerObj.copy()
@@ -79,6 +82,7 @@ class Repository:
         self.equipments = self.mydb["equipment"]
         self.actions = self.mydb["actions"]
         self.maps = self.mydb["maps"]
+        self.chatHistory = self.mydb["chatHistory"]
         self.initializeDB(player)
 
     def getCharacterShop(self, characterName):
@@ -164,3 +168,25 @@ class Repository:
     def delete_game(self, game_name):
         self.myclient.drop_database(game_name)
         return True
+
+    def add_message_to_chat_history(self, message, speaker, speakerImage):
+        self.chatHistory.insert_one({'response': message, 'speaker': speaker, 'speakerImage': speakerImage})
+
+    def get_player_name(self):
+        player_name = self.player.find()[0].get("Name")
+        return player_name
+
+    def get_player_portrait(self):
+        player_portrait = self.player.find()[0].get("Portrait")
+        return player_portrait
+
+    def add_player_message_to_chat_history(self, message):
+        self.add_message_to_chat_history(message, self.get_player_name(), self.get_player_portrait())
+
+    def get_message_history(self):
+        messages = self.chatHistory.find()
+        list_messages = list(messages)
+        formatted_list = [{"response": item["response"].replace("\n", ""), "speaker": item["speaker"],
+                           "speakerImage": item["speakerImage"]} for item in list_messages]
+
+        return formatted_list

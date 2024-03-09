@@ -34,13 +34,11 @@ def create_app():
         repository.setGame(data)
         agent_executer.setRepository(repository)
 
-        print("válasz: ", data)
-        #print("player db: ", repository.player.find()[0])
         createdPlayer = repository.player.find()[0]
 
         del createdPlayer['_id']
-        print("createdPlayer: ", createdPlayer)
-        return createdPlayer
+
+        return {"player": createdPlayer, "history": repository.get_message_history()}
 
     @app.route('/getSaves', methods=['POST'])
     def getSavedGames():
@@ -69,6 +67,8 @@ def create_app():
         speaker = "Game master"
         speakerImage = "src/assets/images/gameicons/game_master.png"
 
+        repository.add_message_to_chat_history(answer, speaker, speakerImage)
+
         return {'response': answer, 'speaker': speaker, 'speakerImage': speakerImage}
 
     @app.route('/chatbot', methods=['POST'])
@@ -77,6 +77,7 @@ def create_app():
 
         # Extract input data from the request
         messages = data.get('messages')
+        repository.add_player_message_to_chat_history(messages)
         try:
             answer_from_agent = agent_executer.agent_executer.run(messages)
         except Exception as e:
@@ -101,6 +102,7 @@ def create_app():
             speaker = agent_as_character.get_character_name()
             speakerImage = agent_as_character.get_character_picture()
 
+        repository.add_message_to_chat_history(answer_from_chatbot, speaker, speakerImage)
         return {'response': answer_from_chatbot, 'speaker': speaker, 'speakerImage': speakerImage}
 
         #return repository.getLastAction()
