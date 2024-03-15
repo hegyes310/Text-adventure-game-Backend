@@ -13,7 +13,7 @@ class Character_Agent:
         self.OPENAI_API_KEY = self.open_file('key_openai.txt')
         self.repository = repository
         self.personified_character = repository.getCharacterWithWhomThePlayerisInteracting()
-        self.template = """Personify a character in a text-based RPG inspired by the Stalker games. Answer the input sentence as your personified character. Utilize the following tools:
+        self.template = """Personify a character in a text-based RPG inspired by the Stalker games who's name is """+ repository.getCharacterNameWithWhomThePlayerisInteracting() + """. Answer the player's input sentence as your personified character, based on your relationship with the player. Utilize the following tools:
 
             {tools}
 
@@ -57,12 +57,17 @@ class Character_Agent:
                 description="Useful when the personified character's background needed to properly answer the input sentence. No action input needed."
             ),
             Tool(
-                name="Get the personified character's relation to the player",
+                name="Get the personified character's relationship to the player",
                 func=self.get_character_relation_to_the_player,
-                description="Useful to determite the personified character's relation to the player. No action input needed."
+                description="Useful to determite the personified character's relationship to the player. No action input needed."
             ),
             Tool(
-                name="Get the personified character's missions",
+                name="Change the personified character's relationship to the player",
+                func=self.set_character_relation_to_the_player,
+                description="Useful to change the relationship character's relation to the player based on on the player's input. The input is the new relationship to the player."
+            ),
+            Tool(
+                name="Get the personified character's missions which can be given to the player",
                 func=self.get_character_missions,
                 #description="Useful when the personified character's missions needed to properly answer the input sentence. No action input needed."
                 description="Useful when the input text is asking about the personified character's missions which can be given to the player. No action input needed."
@@ -84,10 +89,27 @@ class Character_Agent:
                 description="Useful to get the personified character's memories. No action input needed."
             ),
             Tool(
+                name="Player accept the personified character's mission",
+                func=self.player_accept_a_mission,
+                description="Useful when the player's accepted a mission. No action input needed."
+            ),
+            Tool(
                 name="Add memories to the personified character's memories",
                 func=self.set_character_memory,
-                description="Useful when the conversation contains information or informations which good to remember. The input is the memory or memories."
+                description="Always use it to save a shortened version of the conversation or what happend between the personified character and the player. The input is the memory or memories."
+            ),
+
+            Tool(
+                name="Player's mission condition",
+                func=self.get_player_mission,
+                description="Always use this tool to get the player's mission. No action input needed."
+            ),
+            Tool(
+                name="Player is finished the mission",
+                func=self.player_is_finished_the_mission,
+                description="Useful if the player is finished the mission. No action input needed."
             )
+
 
         ]
         self.prompt = self.CustomPromptTemplate(
@@ -127,10 +149,15 @@ class Character_Agent:
     def get_character_relation_to_the_player(self, none):
         return "The personified character relation to the player: " + self.personified_character['Relation']
 
+    def set_character_relation_to_the_player(self, relation):
+        self.repository.changeCharaterRelationToThePlayer(relation)
+
     def get_character_missions(self, none):
         character_missions = self.personified_character['Missions']
+        #print("character_missions: " + character_missions)
         if len(character_missions) > 0:
             missions_str = ", ".join(character_missions)
+            print("missions: " + missions_str)
             return "The personified character missions: " + missions_str
         else:
             return "The personified character don't have missions."
@@ -165,6 +192,18 @@ class Character_Agent:
 
     def get_character_picture(self):
         return self.personified_character['Picture']
+
+    def player_accept_a_mission(self, mission=""):
+        character_missions = self.personified_character['Missions']
+        print("mission: ", character_missions)
+        self.repository.setPlayerMission(character_missions)
+
+    def get_player_mission(self, mission=""):
+        character_missions = self.repository.getPlayerMission()
+        return character_missions
+
+    def player_is_finished_the_mission(self):
+        print("player finisshed the mission")
 
     class CustomPromptTemplate(BaseChatPromptTemplate):
         # The template to use

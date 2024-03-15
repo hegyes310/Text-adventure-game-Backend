@@ -78,6 +78,27 @@ def create_app():
         # Extract input data from the request
         messages = data.get('messages')
         repository.add_player_message_to_chat_history(messages)
+        repository.setCharacterWithWhomThePlayerisInteracting("Cold")
+        agent_as_character = Character_Agent(repository)
+        #print("ez a karater: ", agent_as_character.personified_character)
+
+        try:
+            answer_from_chatbot = agent_as_character.agent_executer.run(messages)
+        except Exception as e:
+            response = str(e)
+            if not response.startswith("Could not parse LLM output: `"):
+                raise e
+            answer_from_chatbot = response.removeprefix("Could not parse LLM output: `").removesuffix("`")
+
+
+        speaker = agent_as_character.get_character_name()
+        speakerImage = agent_as_character.get_character_picture()
+        '''
+        data = request.get_json()
+
+        # Extract input data from the request
+        messages = data.get('messages')
+        repository.add_player_message_to_chat_history(messages)
         try:
             answer_from_agent = agent_executer.agent_executer.run(messages)
         except Exception as e:
@@ -101,7 +122,10 @@ def create_app():
             answer_from_chatbot = agent_as_character.agent_executer.run(messages)
             speaker = agent_as_character.get_character_name()
             speakerImage = agent_as_character.get_character_picture()
-
+        
+        repository.add_message_to_chat_history(answer_from_chatbot, speaker, speakerImage)
+        return {'response': answer_from_chatbot, 'speaker': speaker, 'speakerImage': speakerImage}
+        '''
         repository.add_message_to_chat_history(answer_from_chatbot, speaker, speakerImage)
         return {'response': answer_from_chatbot, 'speaker': speaker, 'speakerImage': speakerImage}
 

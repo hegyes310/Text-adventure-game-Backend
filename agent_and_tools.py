@@ -51,6 +51,11 @@ class AgentWithTools:
                 description="Useful when the input text is indicates an ongoing or general conversation without specifying the character's name. It is designed for scenarios where the player is engaging in dialogue without the need to set a specific character name. This tool assists in processing and responding to player input that pertains to the ongoing narrative or general interactions within the game world, without requiring a predefined character target. This tool shouldn't be triggered when the input text is asking about the presence of people."
             ),
             Tool(
+                name="Accept a mission",
+                func=self.speaking_with_a_character,
+                description="Useful when the input text is about accept a mission."
+            ),
+            Tool(
                 name="Set player's location",
                 func=self.set_playerlocation,
                 description="Useful when the input text is indicates that the player going somewhere. It should be a place or location, and this tool shouldn't be triggered, when the the player go to a person or character. The input is the name of the location."
@@ -104,7 +109,7 @@ class AgentWithTools:
         return "The player is continue the story. No other action or tool needed."
 
     def speaking_with_a_character(self, character=""):
-        self.setNPCWhoThePlayerTalkingTo("Cold")
+        #self.setNPCWhoThePlayerTalkingTo("Cold")
         #ide a default_npc-et kell beállítani
         self.chatbot.set_template(default_npc)
         character = self.repository.getCharacterWithWhomThePlayerisInteracting()

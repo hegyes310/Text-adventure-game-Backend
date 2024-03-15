@@ -38,6 +38,7 @@ class Repository:
         self.read_files_from_folder("map", self.maps)
         self.player.insert_one(playerObj)
         self.player.update_one({"Name": playerObj["Name"]}, {"$set": {"NPC": "None"}})
+        #self.player.update_one({"Name": playerObj["Name"]}, {"$set": {"Mission": "None"}})
 
     def read_files_from_folder(self, folder_path, which_collection):
         file_data = []
@@ -97,6 +98,21 @@ class Repository:
         else:
             return False
 
+    def setPlayerMission(self, mission):
+        player = self.player.find()[0].get("Name")
+        self.player.update_one({"Name": player}, {"$set": {"Missions": mission}})
+        proba = self.player.find()[0].get("Missions")
+        print("player misisonja: ", proba)
+
+    def getPlayerMission(self):
+        player_mission = self.player.find()[0].get("Missions")[0]
+        if len(player_mission) > 0:
+            mission_acceptance = self.missions.find({"Name": player_mission})[0].get("Finished")
+            print("mission acceptance: ", mission_acceptance)
+            return "The player finished the mission if this description is true: " + str(mission_acceptance)
+        else:
+            return "Player has no missions"
+
     def playerWantToFightWithANPC(self, characterName):
         character = self.characters.find({'Name': characterName})[0]
         player = self.player.find()[0]
@@ -116,8 +132,21 @@ class Repository:
             return character_name_from_player
         else:
             character = self.characters.find({'Name': character_name_from_player})[0]
+            print("character: ", character)
             return character
 
+    def getCharacterNameWithWhomThePlayerisInteracting(self):
+        character_name_from_player = self.player.find()[0].get("NPC")
+        if character_name_from_player == "None":
+            return character_name_from_player
+        else:
+            character = self.characters.find({'Name': character_name_from_player})[0]
+            print("character: ", character.get("Name"))
+            return character.get("Name")
+
+    def changeCharaterRelationToThePlayer(self, relation):
+        character_name_from_player = self.player.find()[0].get("NPC")
+        self.characters.update_one({'Name': character_name_from_player}, {"$set": {"Relation": relation}})
 
     def add_character_memory(self, memories):
         character = self.getCharacterWithWhomThePlayerisInteracting()
