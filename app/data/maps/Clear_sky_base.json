@@ -1,0 +1,7 @@
+{
+	"Region": "Clear sky base",
+	"Subregion": ["Main building","Laboratory", "Bar", "Hut", "Workshop"],
+	"Characters": ["Lebedev", "Nimble", "Cold", "Novikov", "Suslov", "Kalancha"],
+	"Details": "Clear sky base contains of a two story main building, with Lebedev the commander residing on the ground floor and Nimble snoozing in the next room. Adjacent is a small laboratory, where Kalancha the scientist monitors his makeshift displays and instruments. A bar, run by Cold, is right next to it. Across the campsite, Novikov the base technician sits in a tiny hut. The workshop opposite to the main building is where Suslov is trading his goods.",
+	"Appearance": "The whole area is surrounded by barbed wire and wooden fences, bushes obstructing the view out of the base."
+}

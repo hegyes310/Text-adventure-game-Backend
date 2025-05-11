@@ -1,0 +1,12 @@
+[
+  {
+    "quest_name": "The [SUBREGION1]",
+    "quest_objective": "Explore the [SUBREGION1], then report back to [NAME2] in [SUBREGION3].",
+    "quest_description": "Thanks to you we know the [SUBREGION4] is infested with [CREATURE_FAMILY5]s. Now we need a scout to investigate the more distant [SUBREGION1]. \n \n Explore [SUBREGION1] and confirm any [CREATURE_FAMILY5] presence."
+  },
+  {
+    "quest_name": "Find [NAME1]",
+    "quest_objective": "Find [NAME1] in [REGION2].",
+    "quest_description": "We've lost contact with [NAME1]! He was sent on a reconnaissance mission over [SUBREGION3] and hasn't reported back in over a week. I just know he's gone and blown himself up. \n \n He was last seen flying over [SUBREGION4]. Perhaps you can investigate, [PLAYERNAME]."
+  }
+]
