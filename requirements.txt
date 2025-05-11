@@ -1,0 +1,9 @@
+flask~=3.1.0
+flask-cors
+langchain-ollama
+langgraph~=0.3.34
+langchain-community
+langgraph-checkpoint-mongodb
+langchain~=0.3.24
+pymongo~=4.11.3
+python-dotenv~=1.1.0
